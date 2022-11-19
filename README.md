@@ -27,15 +27,15 @@
 
 ## Project Description <br>
 
-1.Solution Name:<br>
+1. Solution Name:<br>
 
 - Hubtel.eCommerce.Cart<br>
 
-  2.Project Name:<br>
+2. Project Name:<br>
 
 - Hubtel.eCommerce.Cart.Api<br>
 
-  3.Framework:<br>
+3. Framework:<br>
 
 - .NET Core 3.1<br>
 
