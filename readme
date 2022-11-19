@@ -1,12 +1,11 @@
 # Hubtel.eCommerce.Cart.Api<br>
-
 <hr>
 
 ## Design an API to be used to unify the e-commerce cart experience for users: <br>
 
 1. Provide an endpoint to Add items to cart, with specified quantity<br>
 
-- Adding similar items (same item ID) should increase the quantity - POST<br>
+- Adding similar items (same item ID) should increase the quantity - POST <br>
 
 2. Provide an endpoint to remove an item from cart - DELETE verb<br>
 3. Provide an endpoint list all cart items (with filters => phoneNumbers, time, quantity, item - GET <br>
