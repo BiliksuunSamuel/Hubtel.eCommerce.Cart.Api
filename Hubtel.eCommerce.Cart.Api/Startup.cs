@@ -3,6 +3,7 @@ using Hubtel.eCommerce.Cart.Store.Store;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -31,7 +32,7 @@ namespace Hubtel.eCommerce.Cart.Api
                 c.SwaggerDoc("v1", new OpenApiInfo{ Title = "Hubtel eCommerce Cart API", Version = "v1", });
             });
             //
-            services.AddScoped(StoreContext => new StoreContext(Configuration));
+            services.AddDbContext<StoreContext>(options => options.UseSqlServer("name=ConnectionStrings:default"));
             services.AddTransient<AuthServices>();
             services.AddTransient<CartServices>();
             //

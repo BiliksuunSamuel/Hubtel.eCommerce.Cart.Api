@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hubtel.eCommerce.Cart.Store.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    [Migration("20221121083743_added user model")]
-    partial class addedusermodel
+    [Migration("20221121085550_db init")]
+    partial class dbinit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
