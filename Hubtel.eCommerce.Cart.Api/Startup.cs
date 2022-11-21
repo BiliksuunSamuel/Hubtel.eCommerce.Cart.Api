@@ -1,3 +1,4 @@
+using Hubtel.eCommerce.Cart.Api.Services;
 using Hubtel.eCommerce.Cart.Store.Store;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -31,6 +32,7 @@ namespace Hubtel.eCommerce.Cart.Api
             });
             //
             services.AddSingleton(StoreContext => new StoreContext(Configuration));
+            services.AddTransient<AuthServices>();
             //
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(option =>

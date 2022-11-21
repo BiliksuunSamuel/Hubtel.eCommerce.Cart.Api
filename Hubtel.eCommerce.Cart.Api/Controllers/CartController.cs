@@ -28,7 +28,7 @@ namespace Hubtel.eCommerce.Cart.Api.Controllers
         }
 
         [HttpPost("add")]
-        //[Authorize]
+        [Authorize]
         public JsonResult add(CartModel info)
         {
             try
