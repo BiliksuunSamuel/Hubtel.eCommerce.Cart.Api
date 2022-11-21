@@ -31,8 +31,9 @@ namespace Hubtel.eCommerce.Cart.Api
                 c.SwaggerDoc("v1", new OpenApiInfo{ Title = "Hubtel eCommerce Cart API", Version = "v1", });
             });
             //
-            services.AddSingleton(StoreContext => new StoreContext(Configuration));
+            services.AddScoped(StoreContext => new StoreContext(Configuration));
             services.AddTransient<AuthServices>();
+            services.AddTransient<CartServices>();
             //
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(option =>

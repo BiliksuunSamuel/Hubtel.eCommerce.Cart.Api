@@ -1,11 +1,11 @@
-﻿using Hubtel.eCommerce.Cart.Store.Models;
+﻿using Hubtel.eCommerce.Cart.Api.Services;
+using Hubtel.eCommerce.Cart.Store.Models;
 using Hubtel.eCommerce.Cart.Store.Params;
-using Hubtel.eCommerce.Cart.Store.Store;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Linq;
+using System.Collections.Generic;
 
 namespace Hubtel.eCommerce.Cart.Api.Controllers
 {
@@ -13,39 +13,27 @@ namespace Hubtel.eCommerce.Cart.Api.Controllers
     [ApiController]
     public class CartController : ControllerBase
     {
-        private readonly StoreContext store;
-
-        public CartController(StoreContext s)
+        private readonly CartServices cartServices;
+        public CartController(CartServices cs)
         {
-            store = s;
+            cartServices = cs;
         }
 
-        [HttpGet("get")]
+        [HttpGet]
         
-        public JsonResult get()
+        public JsonResult Get()
         {
-            return new JsonResult(store.Cart.ToList<CartModel>());
+            return new JsonResult(cartServices.GetItems());
         }
 
-        [HttpPost("add")]
+        [HttpPost]
         [Authorize]
-        public JsonResult add(CartModel info)
+        public JsonResult Add(CartModel info)
         {
             try
             {
-                CartModel item = store.Cart.FirstOrDefault<CartModel>(c => c.ItemID == info.ItemID);
-                if (item != null)
-                {
-                    item.Quantity = item.Quantity + 1;
-                    store.SaveChanges();
-                }
-                else
-                {
-                    info.Quantity = info.Quantity == 0 ? 1 : info.Quantity;
-                    store.Cart.Add(info);
-                    store.SaveChanges();
-                }
-                return new JsonResult(store.Cart.ToList<CartModel>());
+                List<CartModel> items = cartServices.AddItem(info);
+                return new JsonResult(items);
             }
             catch (Exception ex)
             {
@@ -55,22 +43,15 @@ namespace Hubtel.eCommerce.Cart.Api.Controllers
             }
         }
 
-        [HttpDelete("remove")]
+        [HttpDelete]
         [Authorize]
-        public JsonResult delete(RemoveItem item)
+        public JsonResult Delete(RemoveItem item)
         {
             try
             {
-                CartModel cartItem = store.Cart.FirstOrDefault<CartModel>(c => c.ItemID == item.ItemId);
-                if (cartItem != null)
-                {
-                    store.Cart.Remove(cartItem);
-                    store.SaveChanges();
-                    return new JsonResult(store.Cart.ToList<CartModel>());
-                }
-                Response.StatusCode = StatusCodes.Status404NotFound;
 
-                return new JsonResult($"No Item Found For Id={item.ItemId}");
+                List<CartModel> items = cartServices.RemoveItem(item);
+                return new JsonResult(items);
             }
             catch (Exception ex)
             {
@@ -80,19 +61,15 @@ namespace Hubtel.eCommerce.Cart.Api.Controllers
             }
         }
 
-        [HttpGet("find")]
+        [HttpGet("id")]
         [Authorize]
-        public JsonResult find(int id)
+        public JsonResult Find(int id)
         {
             try
             {
-                CartModel cartItem = store.Cart.FirstOrDefault<CartModel>(c => c.ItemID == id);
-                if (cartItem != null)
-                {
-                    return new JsonResult(cartItem);
-                }
-                Response.StatusCode = StatusCodes.Status404NotFound;
-                return new JsonResult($"No Item Found For Id={id}");
+
+                CartModel item = cartServices.FindItem(id);
+                return new JsonResult(item);
             }
             catch (Exception ex)
             {

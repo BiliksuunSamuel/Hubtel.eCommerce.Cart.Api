@@ -6,6 +6,7 @@ using System.Text;
 using System;
 using Microsoft.Extensions.Configuration;
 using System.Linq;
+using Hubtel.eCommerce.Cart.Store.Models;
 
 namespace Hubtel.eCommerce.Cart.Api.Services
 {
@@ -18,22 +19,22 @@ namespace Hubtel.eCommerce.Cart.Api.Services
         {
             configuration = _config;
         }
-        public string GenerateToken()
+        public string GenerateToken(UserModel user)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
             var claims = new[]
             {
-                new Claim(ClaimTypes.NameIdentifier,""),
-                new Claim(ClaimTypes.Email,""),
-                new Claim(ClaimTypes.Role,""),
+                new Claim(ClaimTypes.NameIdentifier,user.Username),
+                new Claim(ClaimTypes.Email,user.Email),
+                new Claim(ClaimTypes.Role,user.Role.ToString()),
             };
             var token = new JwtSecurityToken(configuration["Jwt:Issuer"], configuration["Jwt:Audience"], claims, expires: DateTime.Now.AddHours(8), signingCredentials: credentials);
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        public dynamic ValidateToken(HttpContext context)
+        public UserModel ValidateToken(HttpContext context)
         {
             try
             {
@@ -43,9 +44,9 @@ namespace Hubtel.eCommerce.Cart.Api.Services
                     var claim = identity.Claims;
                     var role = claim.FirstOrDefault(o => o.Type == ClaimTypes.Role)?.Value;
 
-                    var user = new
+                    UserModel user = new UserModel()
                     {
-                        Name = claim.FirstOrDefault(o => o.Type == ClaimTypes.NameIdentifier)?.Value,
+                        Username = claim.FirstOrDefault(o => o.Type == ClaimTypes.NameIdentifier)?.Value,
                         Role = role !=null? int.Parse(role!) : 0,
                         Email = claim.FirstOrDefault(o => o.Type == ClaimTypes.Email)?.Value,
                     };

@@ -20,6 +20,6 @@ namespace Hubtel.eCommerce.Cart.Store.Models
         public int Quantity { get; set; }
 
         [Required,DefaultValue(1)]
-        public Single UnitPrice { get; set; }
+        public decimal UnitPrice { get; set; }
     }
 }
