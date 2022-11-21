@@ -32,7 +32,7 @@ namespace Hubtel.eCommerce.Cart.Api
                 c.SwaggerDoc("v1", new OpenApiInfo{ Title = "Hubtel eCommerce Cart API", Version = "v1", });
             });
             //
-            services.AddDbContext<StoreContext>(options => options.UseSqlServer("name=ConnectionStrings:default"));
+            services.AddDbContext<StoreContext>(StoreContext=>new StoreContext(Configuration));
             services.AddTransient<AuthServices>();
             services.AddTransient<CartServices>();
             //
