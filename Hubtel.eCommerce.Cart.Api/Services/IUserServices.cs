@@ -12,6 +12,7 @@ namespace Hubtel.eCommerce.Cart.Api.Services
         public Task<ResponseModel> LoginUser(LoginParams info);
 
         public Task<UserModel> GetUserByEmail(string email);
+        public Task<UserModel> GetUserByPhone(string phone);
 
         public Task<ResponseModel> UpdateUserInfo(UserModel info);
 

@@ -26,12 +26,12 @@ namespace Hubtel.eCommerce.Cart.Api.Services
                 UserModel phoneInfo = await _store.Users.FirstOrDefaultAsync<UserModel>(u => u.Phone == info.Phone);
                 if (phoneInfo != null)
                 {
-                    return new ResponseModel() { Data = null, Status = StatusCodes.Status409Conflict, Message = "Phone Number Already Exist" };
+                    return new ResponseModel() { Data = info, Status = StatusCodes.Status409Conflict, Message = "Phone Number Already Exist" };
                 }
                 UserModel emailInfo = await _store.Users.FirstOrDefaultAsync<UserModel>(u => u.Email == info.Email);
                 if (emailInfo != null)
                 {
-                    return new ResponseModel() { Data = null, Message = "Email Address Is Already Registered", Status = StatusCodes.Status409Conflict };
+                    return new ResponseModel() { Data = info, Message = "Email Address Is Already Registered", Status = StatusCodes.Status409Conflict };
                 }
                 UserModel newUser = new UserModel()
                 {
@@ -71,6 +71,20 @@ namespace Hubtel.eCommerce.Cart.Api.Services
                 UserModel user = await _store.Users.FirstOrDefaultAsync<UserModel>(u => u.Email == email);
                 return user;
             }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task<UserModel> GetUserByPhone(string phone)
+        {
+            try
+            {
+                UserModel user=await _store.Users.FirstOrDefaultAsync<UserModel>(u=>u.Phone==phone);
+                return user;
+            } 
             catch (Exception)
             {
 
@@ -124,7 +138,7 @@ namespace Hubtel.eCommerce.Cart.Api.Services
                 {
                     Data = null,
                     Message = "Account Not Found",
-                    Status = StatusCodes.Status400BadRequest
+                    Status = StatusCodes.Status404NotFound
                 };
             }
             catch (Exception)

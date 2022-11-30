@@ -4,6 +4,7 @@ using Hubtel.eCommerce.Cart.Store.Params;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -27,14 +28,20 @@ namespace Hubtel.eCommerce.Cart.Api.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<JsonResult> Get()
+        public async Task<IActionResult> Get()
         {
             UserModel user = _authServices.ValidateToken(HttpContext);
             user = await _userServices.GetUserByEmail(user.Email);
             if (user == null)
             {
                 Response.StatusCode = StatusCodes.Status403Forbidden;
-                return new JsonResult("Session Expired, Please Login Again");
+                ResponseModel response = new ResponseModel()
+                {
+                    Message = "Session Expired,Please Login Again",
+                    Data = null,
+                    Status = StatusCodes.Status403Forbidden
+                };
+                return StatusCode(response.Status,response);
             }
             ResponseModel data=await cartServices.Get(user);
             Response.StatusCode = data.Status;
@@ -43,46 +50,54 @@ namespace Hubtel.eCommerce.Cart.Api.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<JsonResult> Add(CartInput info)
+        public async Task<IActionResult> Add(CartInput info)
         {
             try
             {
+                UserModel user = _authServices.ValidateToken(HttpContext);
+                user = await _userServices.GetUserByPhone(user.Phone);
+                if(user== null)
+                {
+                    ResponseModel notFoundData = new ResponseModel()
+                    {
+                        Data = null,
+                        Status = StatusCodes.Status404NotFound,
+                        Message = "Account Not Found",
+                    };
+                    return StatusCode(StatusCodes.Status404NotFound, notFoundData);
+                }
+                info.UserId = user.UserId;
                 ResponseModel data =await cartServices.Add(info);
+                return StatusCode(StatusCodes.Status200OK, data);
 
-                Response.StatusCode = data.Status;
-                
-                return new JsonResult(data);
             }
             catch (Exception ex)
             {
-                Response.StatusCode = StatusCodes.Status500InternalServerError;
-                return new JsonResult(ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
                
             }
         }
 
         [HttpDelete]
         [Authorize]
-        public async Task<JsonResult> Delete(CartInput item)
+        public async Task<IActionResult> Delete(CartInput item)
         {
             try
             {
                 
               ResponseModel data =await cartServices.Delete(item);
-                Response.StatusCode = data.Status;
-                return new JsonResult(data);
+                return StatusCode(data.Status, data);
             }
             catch (Exception ex)
             {
 
-                Response.StatusCode = StatusCodes.Status500InternalServerError;
-                return new JsonResult(ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
 
         [HttpGet("id")]
         [Authorize]
-        public async Task<JsonResult> Find(int id)
+        public async Task<IActionResult> Find(int id)
         {
             try
             {
@@ -91,21 +106,26 @@ namespace Hubtel.eCommerce.Cart.Api.Controllers
                 if (user == null)
                 {
                     Response.StatusCode = StatusCodes.Status403Forbidden;
-                    return new JsonResult("Session Expired, Please Login Again");
+                    ResponseModel faileData = new ResponseModel()
+                    {
+                        Message = "Session Expired, Please Login Again",
+                        Data = null,
+                        Status = StatusCodes.Status403Forbidden
+                    };
+                    return StatusCode(StatusCodes.Status403Forbidden,faileData);
                 }
                 ResponseModel data =await cartServices.FindOne(new CartInput()
                 {
                     ItemId=id,
                     UserId=user.UserId,
                 });
-                Response.StatusCode= data.Status;
-                return new JsonResult(data);
+                return StatusCode(data.Status, data);
             }
             catch (Exception ex)
             {
 
                 Response.StatusCode = StatusCodes.Status500InternalServerError;
-                return new JsonResult(ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
     }

@@ -96,7 +96,7 @@ namespace Hubtel.eCommerce.Cart.Api.Services
                 }
                 ProductModel product = await store.Products.FirstOrDefaultAsync<ProductModel>(p => p.Id == info.ItemId);
                 product.Quantity = product.Quantity + itemInfo.Quantity;
-                product.Status = product.Status == 0 ? 1 : 0;
+                product.Status = product.Quantity<=0 ?0: 1;
                 store.Cart.Remove(itemInfo);
                 await store.SaveChangesAsync();
                 return new ResponseModel()

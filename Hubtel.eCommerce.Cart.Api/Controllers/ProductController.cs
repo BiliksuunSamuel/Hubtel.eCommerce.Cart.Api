@@ -22,91 +22,84 @@ namespace Hubtel.eCommerce.Cart.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<JsonResult> Get()
+        public async Task<IActionResult> Get()
         {
             try
             {
                 ResponseModel results = await _productServices.Get();
-                Response.StatusCode = results.Status;
-                return new JsonResult(results);
+                return StatusCode(results.Status, results);
             }
             catch (Exception ex)
             {
 
-                Response.StatusCode = StatusCodes.Status500InternalServerError;
-                return new JsonResult(ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
 
         [HttpPost]
         [Authorize]
-        public async Task<JsonResult>Add(ProductInput info)
+        public async Task<IActionResult>Add(ProductInput info)
         {
             try
             {
                 ResponseModel res=await _productServices.Add(info);
-                Response.StatusCode = res.Status;
-                return new JsonResult(res);
+                return StatusCode(res.Status, res);
             }
             catch (Exception ex)
             {
 
-                Response.StatusCode = StatusCodes.Status500InternalServerError;
-                return new JsonResult(ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
 
         [HttpDelete]
         [Authorize]
-        public async Task<JsonResult>Delete(int id)
+        public async Task<IActionResult>Delete(int id)
         {
             try
             {
 
                 ResponseModel res=await _productServices.Delete(id);
-                Response.StatusCode = res.Status;
-                return new JsonResult(res);
+
+                return StatusCode(res.Status, res);
             }
             catch (Exception ex)
             {
 
-                Response.StatusCode = StatusCodes.Status500InternalServerError;
-                return new JsonResult(ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
 
         [HttpPut]
         [Authorize]
-        public async Task<JsonResult> Update(ProductModel info)
+        public async Task<IActionResult> Update(ProductModel info)
         {
             try
             {
                 ResponseModel data=await _productServices.Update(info);
-                Response.StatusCode = data.Status;
-                return new JsonResult(data);
+                
+                return StatusCode((int)data.Status, data);
             }
             catch (Exception ex)
             {
 
-                Response.StatusCode = StatusCodes.Status500InternalServerError;
-                return new JsonResult(ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
 
         [HttpGet("id")]
-        public async Task<JsonResult>FindOne(int id)
+        public async Task<IActionResult>FindOne(int id)
         {
             try
             {
                 ResponseModel data=await _productServices.FindById(id);
-                Response.StatusCode = data.Status;
-                return new JsonResult(data);
+                
+                return StatusCode(data.Status, data);
             }
             catch (Exception ex)
             {
 
-                Response.StatusCode = StatusCodes.Status500InternalServerError;
-                return new JsonResult(ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
     }

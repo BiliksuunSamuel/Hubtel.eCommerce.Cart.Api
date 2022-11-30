@@ -30,7 +30,7 @@ namespace Hubtel.eCommerce.Cart.Api.Services
             {
                 new Claim(ClaimTypes.NameIdentifier,user.Username),
                 new Claim(ClaimTypes.Email,user.Email),
-                new Claim(ClaimTypes.Role,"0"),
+                new Claim(ClaimTypes.Role,user.Phone),
             };
             var token = new JwtSecurityToken(configuration["Jwt:Issuer"], configuration["Jwt:Audience"], claims, expires: DateTime.Now.AddHours(8), signingCredentials: credentials);
             return new JwtSecurityTokenHandler().WriteToken(token);
@@ -56,6 +56,7 @@ namespace Hubtel.eCommerce.Cart.Api.Services
                     {
                         Username = claim.FirstOrDefault(o => o.Type == ClaimTypes.NameIdentifier)?.Value,
                         Email = claim.FirstOrDefault(o => o.Type == ClaimTypes.Email)?.Value,
+                        Phone=claim.FirstOrDefault(o=>o.Type==ClaimTypes.Role)?.Value
                     };
                     return user;
                 }

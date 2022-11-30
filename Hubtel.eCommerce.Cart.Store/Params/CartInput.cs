@@ -10,7 +10,6 @@ namespace Hubtel.eCommerce.Cart.Store.Params
 {
     public class CartInput
     {
-        [Required]
         public int UserId { get; set; }
 
         [Required]

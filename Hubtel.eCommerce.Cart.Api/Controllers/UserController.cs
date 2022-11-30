@@ -22,76 +22,72 @@ namespace Hubtel.eCommerce.Cart.Api.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<JsonResult> Register(UserInput info)
+        public async Task<IActionResult> Register(UserInput info)
         {
             try
             {
                 ResponseModel data = await _userServies.AddUser(info);
 
-                Response.StatusCode = data.Status;
                 if (data.Status == StatusCodes.Status200OK)
                 {
-                    return new JsonResult(new { Data = data.Data, Message = data.Message, access_token = _authServices.GenerateToken(data.Data) });
+                    var res = new  { Data = data.Data, Message = data.Message, access_token = _authServices.GenerateToken(data.Data) };
+                    return StatusCode(StatusCodes.Status200OK, res);
 
                 }
                 else
                 {
-                    return new JsonResult(data);
+                    return StatusCode(data.Status, data);
                 }
 
             }
             catch (Exception ex)
             {
-                Response.StatusCode = StatusCodes.Status500InternalServerError;
-                return new JsonResult(ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
 
             
         }
 
         [HttpPost("login")]
-        public async Task<JsonResult> Login(LoginParams info)
+        public async Task<IActionResult> Login(LoginParams info)
         {
             try
             {
                 ResponseModel data = await _userServies.LoginUser(info);
-                Response.StatusCode = data.Status;
                 if (data.Status == StatusCodes.Status200OK)
                 {
-                    return new JsonResult(new { Data = data.Data, Message = data.Message, access_token = _authServices.GenerateToken(data.Data) });
+                    var res=new { Data = data.Data, Message = data.Message, access_token = _authServices.GenerateToken(data.Data) };
+                    return StatusCode(data.Status, res);
 
                 }
-                return new JsonResult(data);
+                return StatusCode(data.Status, data);
             }
             catch (Exception ex)
             {
 
-                Response.StatusCode = StatusCodes.Status500InternalServerError;
-                return new JsonResult(ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
 
         [HttpPut()]
         [Authorize]
-        public async Task<JsonResult> UpdateUserInfo(UserModel info)
+        public async Task<IActionResult> UpdateUserInfo(UserModel info)
         {
             try
             {
                 ResponseModel data = await _userServies.UpdateUserInfo(info);
-                Response.StatusCode = data.Status;
-                return new JsonResult(data);
+                return StatusCode(data.Status, data);
             }
             catch (Exception ex)
             {
 
-                Response.StatusCode = StatusCodes.Status500InternalServerError;
-                return new JsonResult(ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
 
         [HttpPatch]
         [Authorize]
-        public async Task<JsonResult> UpdatePassword(PasswordInput info)
+        public async Task<IActionResult> UpdatePassword(PasswordInput info)
         {
             try
             {
@@ -99,18 +95,16 @@ namespace Hubtel.eCommerce.Cart.Api.Controllers
                 userInfo = await _userServies.GetUserByEmail(userInfo.Email);
                 if (userInfo == null)
                 {
-                    Response.StatusCode = StatusCodes.Status403Forbidden;
-                    return new JsonResult("Session Expired, Please Login Again");
+
+                    return StatusCode(StatusCodes.Status403Forbidden,"Session Expired, Please Login Again");
                 }
                 ResponseModel data = await _userServies.UpdatePassword(userInfo, info);
-                Response.StatusCode= data.Status;
-                return new JsonResult(data);
+                return new JsonResult(data.Status,data);
             }
             catch (Exception ex)
             {
 
-                Response.StatusCode = StatusCodes.Status500InternalServerError;
-                return new JsonResult(ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
     }
