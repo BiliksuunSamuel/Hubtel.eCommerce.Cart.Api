@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\bilik\\Desktop\\hubtel\\Hubtel.eCommerce.Cart\\Hubtel.eCommerce.Cart.Api\\Hubtel.eCommerce.Cart.Api.csproj": {}
+    "C:\\Users\\bilik\\Desktop\\Hubtel.eCommerce.Cart.Api\\Hubtel.eCommerce.Cart.Api\\Hubtel.eCommerce.Cart.Api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\bilik\\Desktop\\hubtel\\Hubtel.eCommerce.Cart\\Hubtel.eCommerce.Cart.Api\\Hubtel.eCommerce.Cart.Api.csproj": {
+    "C:\\Users\\bilik\\Desktop\\Hubtel.eCommerce.Cart.Api\\Hubtel.eCommerce.Cart.Api\\Hubtel.eCommerce.Cart.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\bilik\\Desktop\\hubtel\\Hubtel.eCommerce.Cart\\Hubtel.eCommerce.Cart.Api\\Hubtel.eCommerce.Cart.Api.csproj",
+        "projectUniqueName": "C:\\Users\\bilik\\Desktop\\Hubtel.eCommerce.Cart.Api\\Hubtel.eCommerce.Cart.Api\\Hubtel.eCommerce.Cart.Api.csproj",
         "projectName": "Hubtel.eCommerce.Cart.Api",
-        "projectPath": "C:\\Users\\bilik\\Desktop\\hubtel\\Hubtel.eCommerce.Cart\\Hubtel.eCommerce.Cart.Api\\Hubtel.eCommerce.Cart.Api.csproj",
+        "projectPath": "C:\\Users\\bilik\\Desktop\\Hubtel.eCommerce.Cart.Api\\Hubtel.eCommerce.Cart.Api\\Hubtel.eCommerce.Cart.Api.csproj",
         "packagesPath": "C:\\Users\\bilik\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\bilik\\Desktop\\hubtel\\Hubtel.eCommerce.Cart\\Hubtel.eCommerce.Cart.Api\\obj\\",
+        "outputPath": "C:\\Users\\bilik\\Desktop\\Hubtel.eCommerce.Cart.Api\\Hubtel.eCommerce.Cart.Api\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
           "C:\\Users\\bilik\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -32,8 +28,8 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\bilik\\Desktop\\hubtel\\Hubtel.eCommerce.Cart\\Hubtel.eCommerce.Cart.Store\\Hubtel.eCommerce.Cart.Store.csproj": {
-                "projectPath": "C:\\Users\\bilik\\Desktop\\hubtel\\Hubtel.eCommerce.Cart\\Hubtel.eCommerce.Cart.Store\\Hubtel.eCommerce.Cart.Store.csproj"
+              "C:\\Users\\bilik\\Desktop\\Hubtel.eCommerce.Cart.Api\\Hubtel.eCommerce.Cart.Store\\Hubtel.eCommerce.Cart.Store.csproj": {
+                "projectPath": "C:\\Users\\bilik\\Desktop\\Hubtel.eCommerce.Cart.Api\\Hubtel.eCommerce.Cart.Store\\Hubtel.eCommerce.Cart.Store.csproj"
               }
             }
           }
@@ -65,6 +61,14 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[5.0.0, )"
+            },
+            "Scrypt.NET": {
+              "target": "Package",
+              "version": "[1.3.0, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[3.0.0, )"
             },
             "Swashbuckle.AspNetCore.Swagger": {
               "target": "Package",
@@ -98,25 +102,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\bilik\\Desktop\\hubtel\\Hubtel.eCommerce.Cart\\Hubtel.eCommerce.Cart.Store\\Hubtel.eCommerce.Cart.Store.csproj": {
+    "C:\\Users\\bilik\\Desktop\\Hubtel.eCommerce.Cart.Api\\Hubtel.eCommerce.Cart.Store\\Hubtel.eCommerce.Cart.Store.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\bilik\\Desktop\\hubtel\\Hubtel.eCommerce.Cart\\Hubtel.eCommerce.Cart.Store\\Hubtel.eCommerce.Cart.Store.csproj",
+        "projectUniqueName": "C:\\Users\\bilik\\Desktop\\Hubtel.eCommerce.Cart.Api\\Hubtel.eCommerce.Cart.Store\\Hubtel.eCommerce.Cart.Store.csproj",
         "projectName": "Hubtel.eCommerce.Cart.Store",
-        "projectPath": "C:\\Users\\bilik\\Desktop\\hubtel\\Hubtel.eCommerce.Cart\\Hubtel.eCommerce.Cart.Store\\Hubtel.eCommerce.Cart.Store.csproj",
+        "projectPath": "C:\\Users\\bilik\\Desktop\\Hubtel.eCommerce.Cart.Api\\Hubtel.eCommerce.Cart.Store\\Hubtel.eCommerce.Cart.Store.csproj",
         "packagesPath": "C:\\Users\\bilik\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\bilik\\Desktop\\hubtel\\Hubtel.eCommerce.Cart\\Hubtel.eCommerce.Cart.Store\\obj\\",
+        "outputPath": "C:\\Users\\bilik\\Desktop\\Hubtel.eCommerce.Cart.Api\\Hubtel.eCommerce.Cart.Store\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
           "C:\\Users\\bilik\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -173,7 +173,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }

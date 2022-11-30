@@ -11,6 +11,9 @@ namespace Hubtel.eCommerce.Cart.Store.Store
 
 
         public DbSet<CartModel>  Cart { get; set; }
+        public DbSet<ProductModel>  Products { get; set; }
+        public DbSet<UserModel>  Users { get; set; }
+        public DbSet<AuthModel>  Auths { get; set; }
 
 
 

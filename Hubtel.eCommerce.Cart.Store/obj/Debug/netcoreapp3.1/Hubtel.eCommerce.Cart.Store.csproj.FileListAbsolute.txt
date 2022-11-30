@@ -11,3 +11,16 @@ C:\Users\bilik\Desktop\hubtel\Hubtel.eCommerce.Cart\Hubtel.eCommerce.Cart.Store\
 C:\Users\bilik\Desktop\hubtel\Hubtel.eCommerce.Cart\Hubtel.eCommerce.Cart.Store\bin\Debug\netcoreapp3.1\Hubtel.eCommerce.Cart.Store.runtimeconfig.json
 C:\Users\bilik\Desktop\hubtel\Hubtel.eCommerce.Cart\Hubtel.eCommerce.Cart.Store\bin\Debug\netcoreapp3.1\Hubtel.eCommerce.Cart.Store.runtimeconfig.dev.json
 C:\Users\bilik\Desktop\hubtel\Hubtel.eCommerce.Cart\Hubtel.eCommerce.Cart.Store\obj\Debug\netcoreapp3.1\Hubtel.eCommerce.Cart.Store.genruntimeconfig.cache
+C:\Users\bilik\Desktop\Hubtel.eCommerce.Cart.Api\Hubtel.eCommerce.Cart.Store\bin\Debug\netcoreapp3.1\Hubtel.eCommerce.Cart.Store.deps.json
+C:\Users\bilik\Desktop\Hubtel.eCommerce.Cart.Api\Hubtel.eCommerce.Cart.Store\bin\Debug\netcoreapp3.1\Hubtel.eCommerce.Cart.Store.runtimeconfig.json
+C:\Users\bilik\Desktop\Hubtel.eCommerce.Cart.Api\Hubtel.eCommerce.Cart.Store\bin\Debug\netcoreapp3.1\Hubtel.eCommerce.Cart.Store.runtimeconfig.dev.json
+C:\Users\bilik\Desktop\Hubtel.eCommerce.Cart.Api\Hubtel.eCommerce.Cart.Store\bin\Debug\netcoreapp3.1\Hubtel.eCommerce.Cart.Store.dll
+C:\Users\bilik\Desktop\Hubtel.eCommerce.Cart.Api\Hubtel.eCommerce.Cart.Store\bin\Debug\netcoreapp3.1\Hubtel.eCommerce.Cart.Store.pdb
+C:\Users\bilik\Desktop\Hubtel.eCommerce.Cart.Api\Hubtel.eCommerce.Cart.Store\obj\Debug\netcoreapp3.1\Hubtel.eCommerce.Cart.Store.csproj.AssemblyReference.cache
+C:\Users\bilik\Desktop\Hubtel.eCommerce.Cart.Api\Hubtel.eCommerce.Cart.Store\obj\Debug\netcoreapp3.1\Hubtel.eCommerce.Cart.Store.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\bilik\Desktop\Hubtel.eCommerce.Cart.Api\Hubtel.eCommerce.Cart.Store\obj\Debug\netcoreapp3.1\Hubtel.eCommerce.Cart.Store.AssemblyInfoInputs.cache
+C:\Users\bilik\Desktop\Hubtel.eCommerce.Cart.Api\Hubtel.eCommerce.Cart.Store\obj\Debug\netcoreapp3.1\Hubtel.eCommerce.Cart.Store.AssemblyInfo.cs
+C:\Users\bilik\Desktop\Hubtel.eCommerce.Cart.Api\Hubtel.eCommerce.Cart.Store\obj\Debug\netcoreapp3.1\Hubtel.eCommerce.Cart.Store.csproj.CoreCompileInputs.cache
+C:\Users\bilik\Desktop\Hubtel.eCommerce.Cart.Api\Hubtel.eCommerce.Cart.Store\obj\Debug\netcoreapp3.1\Hubtel.eCommerce.Cart.Store.dll
+C:\Users\bilik\Desktop\Hubtel.eCommerce.Cart.Api\Hubtel.eCommerce.Cart.Store\obj\Debug\netcoreapp3.1\Hubtel.eCommerce.Cart.Store.pdb
+C:\Users\bilik\Desktop\Hubtel.eCommerce.Cart.Api\Hubtel.eCommerce.Cart.Store\obj\Debug\netcoreapp3.1\Hubtel.eCommerce.Cart.Store.genruntimeconfig.cache

@@ -6,16 +6,19 @@ namespace Hubtel.eCommerce.Cart.Store.Models
     public class UserModel
     {
         [Key]
-        public int Id { get; set; }
+        public int UserId { get; set; }
 
-        [Required,MaxLength(10)]
+        [Required,MaxLength(50)]
         public string Username { get; set; }
-
-        [Required]
-        public int Role { get; set; }
 
         [Required,MaxLength(150)]
 
         public string Email { get; set; }
+
+        [Required,MaxLength(10),MinLength(10)]
+        public string Phone { get; set; }
+
+        public DateTime DateCreated { get; set; }
+
     }
 }

@@ -4,8 +4,8 @@ using System.Text;
 
 namespace Hubtel.eCommerce.Cart.Store.Params
 {
-    public class RemoveItem
+    public class PasswordInput
     {
-        public int ItemId { get; set; }
+        public string Password { get; set; }
     }
 }

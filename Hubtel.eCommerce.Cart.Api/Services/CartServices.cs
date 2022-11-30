@@ -3,9 +3,11 @@ using Hubtel.eCommerce.Cart.Store.Params;
 using Hubtel.eCommerce.Cart.Store.Store;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Hubtel.eCommerce.Cart.Api.Services
 {
@@ -18,28 +20,58 @@ namespace Hubtel.eCommerce.Cart.Api.Services
             store = _store;
         }
 
-        public List<CartModel> GetItems()
-        {
-            return store.Cart.ToList<CartModel>();
-        }
-
-        public List<CartModel> AddItem(CartModel info)
+        public async Task<ResponseModel> Add(CartInput info)
         {
             try
             {
-                CartModel item = store.Cart.FirstOrDefault<CartModel>(c => c.ItemID == info.ItemID);
-                if (item != null)
+                ProductModel product = await store.Products.FirstOrDefaultAsync<ProductModel>(p => p.Id == info.ItemId);
+                if (product == null||product.Status<=0)
                 {
-                    item.Quantity = item.Quantity + 1;
-                    store.SaveChanges();
+                    return new ResponseModel()
+                    {
+                        Data = null,
+                        Status = StatusCodes.Status400BadRequest,
+                        Message = "Item Unavailable"
+                    };
+                }
+               
+                CartModel cartItem=await store.Cart.FirstOrDefaultAsync<CartModel>(c => (c.ItemId == info.ItemId&&c.UserId==info.UserId));
+                if (cartItem == null)
+                {
+                    CartModel newCartItem = new CartModel()
+                    {
+                        ItemName = info.ItemName,
+                        ItemId = info.ItemId,
+                        UserId = info.UserId,
+                        UnitPrice = info.UnitPrice,
+                        Quantity = 1,
+                        DateAdded = DateTime.Now,
+                    };
+                    product.Quantity = product.Quantity - 1;
+                    product.Status = product.Quantity <= 0 ? 0 : 1;
+                    var itemInfo = await store.Cart.AddAsync(newCartItem);
+                    await store.SaveChangesAsync();
+                    return new ResponseModel()
+                    {
+                        Data= newCartItem,
+                        Status = StatusCodes.Status200OK,
+                        Message="Item Added Successfully"
+                    };
                 }
                 else
                 {
-                    info.Quantity = info.Quantity == 0 ? 1 : info.Quantity;
-                    store.Cart.Add(info);
-                    store.SaveChanges();
+                    cartItem.Quantity = cartItem.Quantity + 1;
+                    product.Quantity = product.Quantity - 1;
+                    product.Status = product.Quantity <= 0 ? 0 : 1;
+                    await store.SaveChangesAsync();
+                    return new ResponseModel()
+                    {
+                        Data = cartItem,
+                        Status = StatusCodes.Status200OK,
+                        Message = "Item Added"
+                    };
                 }
-                return store.Cart.ToList<CartModel>();
+                
             }
             catch (Exception)
             {
@@ -48,21 +80,31 @@ namespace Hubtel.eCommerce.Cart.Api.Services
             }
         }
 
-        public List<CartModel> RemoveItem(RemoveItem item)
+        public async Task<ResponseModel> Delete(CartInput info)
         {
             try
             {
-                CartModel cartItem = store.Cart.FirstOrDefault<CartModel>(c => c.ItemID == item.ItemId);
-                if (cartItem != null)
+                CartModel itemInfo=await store.Cart.FirstOrDefaultAsync<CartModel>(c=>(c.ItemId == info.ItemId && c.UserId == info.UserId));
+                if (itemInfo == null)
                 {
-                    store.Cart.Remove(cartItem);
-                    store.SaveChanges();
-                    return store.Cart.ToList<CartModel>();
+                    return new ResponseModel()
+                    {
+                        Data=null,
+                        Status=StatusCodes.Status404NotFound,
+                        Message="Operation Failed,Item Not Found"
+                    };
                 }
-                else
+                ProductModel product = await store.Products.FirstOrDefaultAsync<ProductModel>(p => p.Id == info.ItemId);
+                product.Quantity = product.Quantity + itemInfo.Quantity;
+                product.Status = product.Status == 0 ? 1 : 0;
+                store.Cart.Remove(itemInfo);
+                await store.SaveChangesAsync();
+                return new ResponseModel()
                 {
-                    throw new Exception($"No Item Found For Id={item.ItemId}");
-                }
+                    Data = itemInfo,
+                    Message = "Item Remove Successfully",
+                    Status = StatusCodes.Status200OK
+                };
             }
             catch (Exception)
             {
@@ -71,19 +113,36 @@ namespace Hubtel.eCommerce.Cart.Api.Services
             }
         }
 
-        public CartModel FindItem(int id)
+        public async Task<ResponseModel> FindOne(CartInput info)
         {
             try
             {
-                CartModel cartItem = store.Cart.FirstOrDefault<CartModel>(c => c.ItemID == id);
-                if (cartItem != null)
+                CartModel item=await store.Cart.FirstOrDefaultAsync<CartModel>(c=>(c.ItemId == info.ItemId && c.UserId == info.UserId));
+                return new ResponseModel()
                 {
-                    return cartItem;
-                }
-                else
+                    Data=item,
+                    Status=item==null?StatusCodes.Status404NotFound:StatusCodes.Status200OK,
+                    Message=item==null?"Item Not Found!":"Ok"
+                };
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task<ResponseModel> Get( UserModel user)
+        {
+            try
+            {
+                List<CartModel>data=await store.Cart.Include(c=>c.User).Where<CartModel>(c=>c.UserId==user.UserId).ToListAsync<CartModel>();
+                return new ResponseModel()
                 {
-                    throw new Exception($"No Item Found For Id={id}");
-                }
+                    Data=data,
+                    Message="Ok",
+                    Status = StatusCodes.Status200OK
+                };
             }
             catch (Exception)
             {

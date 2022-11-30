@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "1kIW1tFrCoM64pMQyqLKpLBwo3igKbAwQkJ0ynQ2+UmeGOJYi5HvXdfKW2/zGFHefzbmrcENiBsDyTR2XxnHUw==",
+  "dgSpecHash": "1u6MIDrpPm2+K5Q4Zj0kJAGL2jttfRyA0BjocNGfuKxVtk2IgEPQnSdYlSuT0Rj2oPJQ4VaXmc9nO2N5XLFUKg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\bilik\\Desktop\\hubtel\\Hubtel.eCommerce.Cart\\Hubtel.eCommerce.Cart.Store\\Hubtel.eCommerce.Cart.Store.csproj",
+  "projectFilePath": "C:\\Users\\bilik\\Desktop\\Hubtel.eCommerce.Cart.Api\\Hubtel.eCommerce.Cart.Store\\Hubtel.eCommerce.Cart.Store.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\bilik\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\bilik\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",

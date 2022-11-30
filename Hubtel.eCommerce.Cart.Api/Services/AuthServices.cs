@@ -7,6 +7,8 @@ using System;
 using Microsoft.Extensions.Configuration;
 using System.Linq;
 using Hubtel.eCommerce.Cart.Store.Models;
+using System.Threading.Tasks;
+using Scrypt;
 
 namespace Hubtel.eCommerce.Cart.Api.Services
 {
@@ -28,10 +30,16 @@ namespace Hubtel.eCommerce.Cart.Api.Services
             {
                 new Claim(ClaimTypes.NameIdentifier,user.Username),
                 new Claim(ClaimTypes.Email,user.Email),
-                new Claim(ClaimTypes.Role,user.Role.ToString()),
+                new Claim(ClaimTypes.Role,"0"),
             };
             var token = new JwtSecurityToken(configuration["Jwt:Issuer"], configuration["Jwt:Audience"], claims, expires: DateTime.Now.AddHours(8), signingCredentials: credentials);
             return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        public string HashPassword(string password)
+        {
+            ScryptEncoder encoder = new ScryptEncoder();
+            return encoder.Encode(password);
         }
 
         public UserModel ValidateToken(HttpContext context)
@@ -47,7 +55,6 @@ namespace Hubtel.eCommerce.Cart.Api.Services
                     UserModel user = new UserModel()
                     {
                         Username = claim.FirstOrDefault(o => o.Type == ClaimTypes.NameIdentifier)?.Value,
-                        Role = role !=null? int.Parse(role!) : 0,
                         Email = claim.FirstOrDefault(o => o.Type == ClaimTypes.Email)?.Value,
                     };
                     return user;
@@ -59,6 +66,13 @@ namespace Hubtel.eCommerce.Cart.Api.Services
 
                 throw;
             }
+        }
+
+        public  bool VerifyPassword(string password, string hPassword)
+        {
+            ScryptEncoder encode = new ScryptEncoder();
+
+            return  encode.Compare(password, hPassword);
         }
     }
 }
